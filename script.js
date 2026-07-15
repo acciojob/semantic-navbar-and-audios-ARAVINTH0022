@@ -1,34 +1,25 @@
 //your code here
-// Clear body to ensure a clean state
+// Clear body
 document.body.innerHTML = '';
 
-// --- Part 1: Semantic Navbar ---
+// --- Part 1: Navbar ---
 const nav = document.createElement('nav');
 const ul = document.createElement('ul');
+const links = ['Home', 'About', 'Contact'];
 
-// Create 3 links
-const links = [
-    { text: 'Home', href: '#home' },
-    { text: 'About', href: '#about' },
-    { text: 'Contact', href: '#contact' }
-];
-
-links.forEach(linkData => {
+links.forEach(text => {
     const li = document.createElement('li');
     const a = document.createElement('a');
-    a.href = linkData.href;
-    a.innerText = linkData.text;
+    a.href = '#' + text.toLowerCase();
+    a.innerText = text;
     li.appendChild(a);
     ul.appendChild(li);
 });
-
 nav.appendChild(ul);
 document.body.appendChild(nav);
 
 // --- Part 2: Audio Section ---
 const section = document.createElement('section');
-
-// Heading
 const h2 = document.createElement('h2');
 h2.innerText = '3 random audios';
 section.appendChild(h2);
@@ -40,26 +31,12 @@ const audioUrls = [
     'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3'
 ];
 
-// Create 3 audio tracks
+// Create 3 audio tracks (FIXED: src directly on audio tag)
 audioUrls.forEach(url => {
     const audio = document.createElement('audio');
-    audio.controls = true; // Add controls attribute
-    
-    const source = document.createElement('source');
-    source.src = url;
-    
-    // Set type based on extension
-    if (url.endsWith('.ogg')) {
-        source.type = 'audio/ogg';
-    } else {
-        source.type = 'audio/mpeg';
-    }
-
-    audio.appendChild(source);
+    audio.src = url;       // Set src directly on <audio>
+    audio.controls = true; // Set controls directly on <audio>
     section.appendChild(audio);
-    
-    // Add line break for spacing (optional but good for layout)
-    section.appendChild(document.createElement('br'));
 });
 
 document.body.appendChild(section);   
